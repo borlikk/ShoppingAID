@@ -31,6 +31,17 @@ class Landing : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+
+        val databaseHandler: DatabaseHandler = DatabaseHandler(this)
+
+        val status = databaseHandler.addShopping(ShoppingClass(0, "GayaShopping", "Gaia"))
+
+        if (status != null) {
+            if (status > -1) {
+                Toast.makeText(applicationContext, "Record saved", Toast.LENGTH_LONG).show()
+            }
+        }
+
         setContentView(R.layout.landing)
         val camera = findViewById<FloatingActionButton>(R.id.btncamera)
         camera.setOnClickListener {
