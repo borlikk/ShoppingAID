@@ -36,6 +36,7 @@ class ShoppingHomepage : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         val homeFragment = HomeFragment()
         val mapFragment = MapFragment()
         val aboutFragment = AboutFragment()
