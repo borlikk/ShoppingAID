@@ -5,6 +5,8 @@
     <string name="prevtext">Please Scan the QR Code</string>
     <string name="homefrag">Home Fragment</string>
     <string name="mapfrag">Nav Fragment</string>
-    <string name ="navnamehome">Home</string>
-    <string name ="navnamemap">Navi</string>
+    <string name="navnamehome">Home</string>
+    <string name="navnamemap">Navi</string>
+    <string name="abtfrag">About Fragment</string>
+    <string name="navnameabout">About</string>
 </resources>
