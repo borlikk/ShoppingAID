@@ -9,4 +9,5 @@
     <string name="navnamemap">Navi</string>
     <string name="abtfrag">About Fragment</string>
     <string name="navnameabout">About</string>
+    <string name="scan_qr_code">Scan QR Code</string>
 </resources>
