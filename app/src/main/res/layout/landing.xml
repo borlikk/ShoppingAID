@@ -8,7 +8,6 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btncamera"
-        fab:fabCustomSize="89dp"
         android:layout_width="89dp"
         android:layout_height="89dp"
         android:clickable="true"
@@ -23,6 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.727"
+        app:maxImageSize="60dp"
         app:srcCompat="@drawable/ic_qrcode" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -40,6 +40,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.727"
+        app:maxImageSize="60dp"
         app:srcCompat="@drawable/ic_search" />
 
     <HorizontalScrollView
