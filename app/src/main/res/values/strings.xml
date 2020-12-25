@@ -10,4 +10,7 @@
     <string name="abtfrag">About Fragment</string>
     <string name="navnameabout">About</string>
     <string name="scan_qr_code">Scan QR Code</string>
+    <string name="location">Location</string>
+    <string name="website">Website</string>
+    <string name="shopping_name">Shopping Name</string>
 </resources>
