@@ -24,7 +24,7 @@ class DatabaseHandler(context: Context) :
         //tabela das lojas
         private val TABLE_LOJAS = "LojasTable"
 
-        private val KEY_ID_SHOPPING = "IdShopping"
+        private val FKEY_ID_SHOPPING = "IdShopping"
         private val KEY_ID_LOJA = "IdLoja"
         private val KEY_NOME_LOJA = "nomeLoja"
         private val KEY_PISO = "piso"
@@ -33,6 +33,20 @@ class DatabaseHandler(context: Context) :
         private val KEY_DESCRICAO = "descricao"
         private val KEY_HORARIO = "horario"
 
+        //Tabela das Categorias de cada Loja
+        private val TABLE_CATEGORIAS = "Categorias"
+
+        private val KEY_ID_CATEGORIA = "IdCategoria"
+        private val FKEY_NOME_LOJA = "NomeLoja"
+        private val KEY_CATEGORIA = "Categoria"
+
+        //Tabela de Serviços de cada Shopping
+        private val TABLE_SERVICOS = "Servicos"
+
+        private val KEY_ID_SERVICO = "idServico"
+        private val FKEY_ID_SHOPPING_deservicos = "idShopping"
+        private val KEY_TIPO_SERVICO = "tipo"
+        private val KEY_PISO_SERVICO = "piso"
 
     }
 
@@ -44,9 +58,19 @@ class DatabaseHandler(context: Context) :
         db?.execSQL(CREATE_SHOPPING_TABLE)
 
         val CREATE_LOJA_TABLE = ("CREATE TABLE " + TABLE_LOJAS + "("
-                + KEY_ID_LOJA + " INTEGER PRIMARY KEY," + KEY_ID_SHOPPING + " INTEGER," + KEY_NOME_LOJA + " TEXT,"
+                + KEY_ID_LOJA + " INTEGER PRIMARY KEY," + FKEY_ID_SHOPPING + " INTEGER," + KEY_NOME_LOJA + " TEXT,"
                 + KEY_PISO + " TEXT," + KEY_LOTACAO + " INTEGER, " + KEY_WEBSITE + " TEXT, " + KEY_DESCRICAO + " TEXT," + KEY_HORARIO + " TEXT)")
         db?.execSQL(CREATE_LOJA_TABLE)
+
+        val CREATE_CATEGORIA_TABLE = ("CREATE TABLE " + TABLE_CATEGORIAS + " ("
+                + KEY_ID_CATEGORIA + " INTEGER PRIMARY KEY, " + FKEY_NOME_LOJA + " TEXT, " + KEY_CATEGORIA + " TEXT)")
+
+        db?.execSQL(CREATE_CATEGORIA_TABLE)
+
+        val CREATE_SERVICOS_TABLE = ("CREATE TABLE " + TABLE_SERVICOS + " ("
+                + KEY_ID_SERVICO + " INTEGER PRIMARY KEY," + FKEY_ID_SHOPPING_deservicos + " INTEGER, " + KEY_TIPO_SERVICO + " TEXT, " + KEY_PISO_SERVICO + " TEXT)")
+
+        db?.execSQL(CREATE_SERVICOS_TABLE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -68,8 +92,11 @@ class DatabaseHandler(context: Context) :
 
         val insert2 = db.insert(TABLE_SHOPPINGS, null, contentValues)
 
+        val contentValuesServico = ContentValues()
+        contentValuesServico.put(FKEY_ID_SHOPPING_deservicos, 1)
+
         val contentValuesLojas = ContentValues()
-        contentValuesLojas.put(KEY_ID_SHOPPING, 1)
+        contentValuesLojas.put(FKEY_ID_SHOPPING, 1)
         contentValuesLojas.put(KEY_NOME_LOJA, "Sport Zone")
         contentValuesLojas.put(KEY_PISO, 0)
         contentValuesLojas.put(KEY_LOTACAO, 25)
@@ -79,7 +106,7 @@ class DatabaseHandler(context: Context) :
 
         val insertSport = db.insert(TABLE_LOJAS, null, contentValuesLojas)
 
-        contentValuesLojas.put(KEY_ID_SHOPPING, 1)
+        contentValuesLojas.put(FKEY_ID_SHOPPING, 1)
         contentValuesLojas.put(KEY_NOME_LOJA, "FNAC")
         contentValuesLojas.put(KEY_PISO, 1)
         contentValuesLojas.put(KEY_LOTACAO, 25)
@@ -89,6 +116,27 @@ class DatabaseHandler(context: Context) :
 
         val insertFNAC = db.insert(TABLE_LOJAS, null, contentValuesLojas)
 
+        val contentValuesCategoria = ContentValues()
+        contentValuesCategoria.put(FKEY_NOME_LOJA, "SportZone")
+        contentValuesCategoria.put(KEY_CATEGORIA, "Desporto")
+
+        db.insert(TABLE_CATEGORIAS, null, contentValuesCategoria)
+
+        contentValuesCategoria.put(FKEY_NOME_LOJA, "SportZone")
+        contentValuesCategoria.put(KEY_CATEGORIA, "Roupa")
+
+        db.insert(TABLE_CATEGORIAS, null, contentValuesCategoria)
+
+        contentValuesCategoria.put(FKEY_NOME_LOJA, "FNAC")
+        contentValuesCategoria.put(KEY_CATEGORIA, "Tecnologia")
+
+        db.insert(TABLE_CATEGORIAS, null, contentValuesCategoria)
+
+        contentValuesCategoria.put(FKEY_NOME_LOJA, "FNAC")
+        contentValuesCategoria.put(KEY_CATEGORIA, "Livros")
+
+        db.insert(TABLE_CATEGORIAS, null, contentValuesCategoria)
+
         return insert != null && insertSport != null && insertFNAC != null
     }
 
@@ -96,9 +144,8 @@ class DatabaseHandler(context: Context) :
         val db = this.readableDatabase
 
         val searchQuery = ("SELECT " + KEY_NAME + " FROM " + TABLE_SHOPPINGS + " WHERE " + KEY_NAME + " LIKE '" + shopping + "%'")
-        val cursor = db.rawQuery(searchQuery, null)
 
-        return cursor
+        return db.rawQuery(searchQuery, null)
     }
 
 }

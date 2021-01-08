@@ -31,7 +31,7 @@ class Landing : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        /**
+
         val databaseHandler: DatabaseHandler = DatabaseHandler(this)
 
         val status = databaseHandler.dataBaseInserts()
@@ -39,7 +39,6 @@ class Landing : AppCompatActivity() {
         if (status) {
             Toast.makeText(applicationContext, "Record saved", Toast.LENGTH_LONG).show()
         }
-        **/
 
         setContentView(R.layout.landing)
         val camera = findViewById<FloatingActionButton>(R.id.btncamera)
