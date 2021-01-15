@@ -3,4 +3,4 @@ Adicionei a base de dados completa (com alguns registos) para usares corres uma 
 
 
 O searchView do fragment que criaste está a pesquisar na base de dados, 
-mas ainda não consegui meter a aparecer na ListView (pls vê se consegues tu, estive práticamente o dia todo a tentar fazer isso)
+mas ainda não consegui meter a aparecer na ListView (pls vê se consegues tu, estive praticamente o dia todu a tentar fazer isso)

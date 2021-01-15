@@ -85,7 +85,7 @@ class Landing : AppCompatActivity() {
             outdoor.forEach { dao.insertOutdoor(it) }
             indoor.forEach { dao.insertIndoor(it) }
         }
-
+         **/
 
 
         setContentView(R.layout.landing)
@@ -97,7 +97,7 @@ class Landing : AppCompatActivity() {
         shopmain.setOnClickListener{
             startActivity(Intent(this, ShoppingHomepage::class.java))
         }
-         **/
+
     }
 
 }
