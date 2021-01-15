@@ -16,13 +16,6 @@
             android:layout_height="wrap_content"
             android:queryHint="Pesquisar por Shopping" />
 
-        <ListView
-            android:id="@+id/list"
-            android:layout_width="251dp"
-            android:layout_height="551dp"
-            android:layout_below="@+id/barraPesquisa"
-            android:layout_marginTop="8dp" />
-
     </RelativeLayout>
 
 </FrameLayout>

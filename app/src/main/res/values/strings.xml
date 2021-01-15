@@ -2,7 +2,7 @@
     <string name="app_name">ShoppingAID</string>
     <string name="search_title">Search</string>
     <string name="search_hint">Shopping Name</string>
-    <string name="prevtext">Please Scan the QR Code</string>
+    <string name="prevtext">Please wait for scan</string>
     <string name="homefrag">Home Fragment</string>
     <string name="mapfrag">Nav Fragment</string>
     <string name="navnamehome">Home</string>
@@ -13,4 +13,5 @@
     <string name="location">Location</string>
     <string name="website">Website</string>
     <string name="shopping_name">Shopping Name</string>
+    <string name="nada">Nada</string>
 </resources>

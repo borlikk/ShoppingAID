@@ -1,28 +1,21 @@
 package com.onehitwonders.startpage
 
-import android.app.Activity
-import android.app.SearchManager
-import android.content.Context
 import android.content.Intent
-import android.content.Intent.ACTION_SEARCH
-import android.content.Intent.FILL_IN_PACKAGE
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.IntentCompat
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
+import com.onehitwonders.startpage.fragments.HomeFragment
 import kotlinx.android.synthetic.main.campreview.*
-import java.util.*
-import java.util.jar.Manifest
 
 private const val CAMERA_REQUEST_CODE = 101
 class CameraPreview : AppCompatActivity() {
@@ -32,12 +25,12 @@ class CameraPreview : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.campreview)
-
         setupPermissions()
         codeScanner()
 
     }
     private fun codeScanner() {
+        var codigo: String
         codeScanner = CodeScanner(this, camprev)
 
         codeScanner.apply {
@@ -49,7 +42,11 @@ class CameraPreview : AppCompatActivity() {
             isFlashEnabled = false
             decodeCallback = DecodeCallback {
                 runOnUiThread {
-                    yikesbro.text = it.text
+                    yikesbro.text = "Ready!"
+                    codigo = it.text
+                    if (yikesbro.text.toString() != "Please wait for scan"){
+                        ChangePage(codigo)
+                    }
                 }
             }
             errorCallback = ErrorCallback {
@@ -58,8 +55,14 @@ class CameraPreview : AppCompatActivity() {
                 }
             }
         }
-
     }
+
+    private fun ChangePage(codigo: String) {
+        val intent = Intent(this, ShoppingHomepage::class.java)
+        intent.putExtra("scanCode", codigo)
+        startActivity(intent)
+    }
+
     private fun setupPermissions() {
         val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
 
