@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="413dp"
+                android:layout_height="279dp"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/shoppingname"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:text="Shopping Name"
+                android:textAlignment="center"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/locationtag"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:text="Location"
+                android:textSize="24sp" />
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapa"
+                android:layout_width="match_parent"
+                android:layout_height="161dp"
+                android:paddingVertical="10dp" />
+
+            <TextView
+                android:id="@+id/schedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:text="Schedule"
+                android:textSize="24sp" />
+
+            <ListView
+                android:id="@+id/horario"
+                android:layout_width="match_parent"
+                android:layout_height="275dp" />
+
+            <TextView
+                android:id="@+id/stores"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="Stores" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

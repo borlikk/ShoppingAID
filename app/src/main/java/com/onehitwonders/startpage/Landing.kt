@@ -86,7 +86,7 @@ class Landing : AppCompatActivity() {
             indoor.forEach { dao.insertIndoor(it) }
         }
 
-        **/
+
 
         setContentView(R.layout.landing)
         val camera = findViewById<FloatingActionButton>(R.id.btncamera)
@@ -97,5 +97,7 @@ class Landing : AppCompatActivity() {
         shopmain.setOnClickListener{
             startActivity(Intent(this, ShoppingHomepage::class.java))
         }
+         **/
     }
+
 }
