@@ -59,15 +59,16 @@
                 android:id="@+id/stores"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:text="Stores" />
+                android:text="Stores"
+                android:textSize="24sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/store_recycler"
-                android:padding="4dp"
-                android:clipToPadding="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_recycler"/>
+                android:clipToPadding="false"
+                android:padding="4dp"
+                tools:listitem="@layout/item_recycler" />
 
         </LinearLayout>
     </ScrollView>

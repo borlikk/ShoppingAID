@@ -15,6 +15,11 @@
                     android:resource="@xml/searchable"/>
         </activity>
 
+        <activity android:name=".ShoppingPage">
+
+
+        </activity>
+
         <activity android:name=".CameraPreview">
 
         </activity>

@@ -95,7 +95,7 @@ class Landing : AppCompatActivity() {
         }
         val shopmain = findViewById<FloatingActionButton>(R.id.btnmain)
         shopmain.setOnClickListener{
-            startActivity(Intent(this, ShoppingHomepage::class.java))
+            startActivity(Intent(this, ShoppingPage::class.java))
         }
 
     }
