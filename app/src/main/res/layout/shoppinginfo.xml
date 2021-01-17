@@ -8,7 +8,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport= "true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,6 +26,7 @@
                 android:id="@+id/shoppingname"
                 android:layout_width="match_parent"
                 android:layout_height="59dp"
+                android:layout_marginStart="4dp"
                 android:text="Shopping Name"
                 android:textAlignment="center"
                 android:textSize="36sp" />
@@ -53,7 +55,9 @@
             <ListView
                 android:id="@+id/horario"
                 android:layout_width="match_parent"
-                android:layout_height="275dp" />
+                android:layout_height="275dp" >
+
+            </ListView>
 
             <TextView
                 android:id="@+id/stores"
@@ -69,9 +73,7 @@
                 android:clipToPadding="false"
                 android:padding="4dp"
                 tools:listitem="@layout/item_recycler" />
-
         </LinearLayout>
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

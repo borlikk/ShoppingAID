@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.shoppinginfo.*
 
 class ShoppingPage: AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.shoppinginfo)
 
-        val exampleList = generateDummyList(500)
+        val exampleList = generateDummyList(45)
 
         store_recycler.adapter = AdapterRecycler(exampleList)
         store_recycler.layoutManager = LinearLayoutManager(this)

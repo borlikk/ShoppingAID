@@ -1,5 +1,6 @@
 package com.onehitwonders.startpage
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.SearchView
 import android.widget.Toast
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class SearchShopping : AppCompatActivity(), ShoppingAdapter.OnItemClickListener{
@@ -33,14 +35,19 @@ class SearchShopping : AppCompatActivity(), ShoppingAdapter.OnItemClickListener{
 
                 lifecycleScope.launch {
                     val listShopping = dao.searchShopping(p0)
+                    if (listShopping.isEmpty()) {
+                        lifecycleScope.cancel("Shopping Inexistente")
+                    } else {
+                        val firstItem = ShoppingItem(
+                            R.drawable.ic_baseline_shopping_bag_24,
+                            listShopping.first().name,
+                            listShopping.first().location
+                        )
 
-                    val firstItem = ShoppingItem(R.drawable.ic_baseline_shopping_bag_24, listShopping.first().name, listShopping.first().location)
-
-                    list += firstItem
-
-                    recycler.adapter = adapter
+                        list += firstItem
+                        recycler.adapter = adapter
+                    }
                 }
-
                 return false
             }
 
@@ -56,5 +63,6 @@ class SearchShopping : AppCompatActivity(), ShoppingAdapter.OnItemClickListener{
     override fun onItemClick(position: Int) {
         val clickedShopping = list[position]
         Toast.makeText(this, "Shopping: ${clickedShopping.text}", Toast.LENGTH_LONG).show()
+
     }
 }
