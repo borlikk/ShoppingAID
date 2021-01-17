@@ -40,7 +40,7 @@ class Landing : AppCompatActivity() {
         val dao = ShoppingDatabase.getInstance(this).shoppingDao
 
         val shoppings = listOf(
-            Shopping(0, "GaiaShopping", "Gaia", "10:00 às 22:30", 600),
+            Shopping(0, "GayaShopping", "Gaia", "10:00 às 22:30", 600),
             Shopping(0, "ArrabidaShopping", "Arrabida", "10:00 às 22:30", 1000)
         )
 
@@ -86,7 +86,7 @@ class Landing : AppCompatActivity() {
             indoor.forEach { dao.insertIndoor(it) }
         }
 
-
+        **/
 
         setContentView(R.layout.landing)
         val camera = findViewById<FloatingActionButton>(R.id.btncamera)
@@ -95,9 +95,9 @@ class Landing : AppCompatActivity() {
         }
         val shopmain = findViewById<FloatingActionButton>(R.id.btnmain)
         shopmain.setOnClickListener{
-            startActivity(Intent(this, ShoppingHomepage::class.java))
+            startActivity(Intent(this, SearchShopping::class.java))
         }
-         **/
+
     }
 
 }

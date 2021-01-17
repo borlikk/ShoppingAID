@@ -19,6 +19,10 @@
 
         </activity>
 
+        <activity android:name=".SearchShopping">
+
+        </activity>
+
         <activity android:name=".Landing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
