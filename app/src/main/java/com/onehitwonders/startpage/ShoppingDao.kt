@@ -53,6 +53,6 @@ interface ShoppingDao {
     suspend fun getShoppingWithIndoor(idEstacionamento: Int): List<EstacionamentoWithIndoors>
 
     @Transaction
-    @Query("SELECT * FROM Shopping WHERE name LIKE '%' || :name || '%'")
-    suspend fun searchShopping(name: String?): Array<Shopping>
+    @Query("SELECT * FROM Shopping WHERE name = :name")
+    suspend fun searchShopping(name: String?): List<Shopping>
 }
