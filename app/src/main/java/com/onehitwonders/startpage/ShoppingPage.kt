@@ -2,19 +2,22 @@ package com.onehitwonders.startpage
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.shoppinginfo.*
 
-class ShoppingPage: AppCompatActivity() {
+class ShoppingPage: AppCompatActivity(), AdapterRecycler.OnItemClickListener {
+    private val exampleList = generateDummyList(45)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shoppinginfo)
 
-        val exampleList = generateDummyList(45)
 
-        store_recycler.adapter = AdapterRecycler(exampleList)
-        store_recycler.layoutManager = LinearLayoutManager(this)
+
+        store_recycler.adapter = AdapterRecycler(exampleList, this)
+        store_recycler.layoutManager = GridLayoutManager(this, 2)
         store_recycler.setHasFixedSize(true)
     }
 
@@ -35,5 +38,8 @@ class ShoppingPage: AppCompatActivity() {
         return list
     }
 
-
+    override fun onItemClick(position: Int) {
+        Toast.makeText(this, "item $position clicked", Toast.LENGTH_SHORT).show()
+        val clickedItem = exampleList[position]
+    }
 }

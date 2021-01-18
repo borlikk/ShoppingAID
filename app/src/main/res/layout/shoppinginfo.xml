@@ -20,9 +20,11 @@
                 android:id="@+id/imageView2"
                 android:layout_width="413dp"
                 android:layout_height="279dp"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                tools:srcCompat="@drawable/web_gaia"
+                android:contentDescription="GaiaShopping" />
 
             <TextView
+                android:padding="3dp"
                 android:id="@+id/shoppingname"
                 android:layout_width="match_parent"
                 android:layout_height="59dp"
@@ -32,6 +34,7 @@
                 android:textSize="36sp" />
 
             <TextView
+                android:padding="3dp"
                 android:id="@+id/locationtag"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
@@ -45,6 +48,7 @@
                 android:paddingVertical="10dp" />
 
             <TextView
+                android:padding="3dp"
                 android:id="@+id/schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
