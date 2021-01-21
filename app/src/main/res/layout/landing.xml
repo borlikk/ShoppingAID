@@ -6,6 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.viewpager.widget.PagerTitleStrip
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top" />
+
+    </androidx.viewpager.widget.ViewPager>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btncamera"
         android:layout_width="89dp"
@@ -42,18 +53,6 @@
         app:layout_constraintVertical_bias="0.727"
         app:maxImageSize="60dp"
         app:srcCompat="@drawable/ic_search" />
-
-    <HorizontalScrollView
-        android:id="@+id/tutorial"
-        android:layout_width="303dp"
-        android:layout_height="291dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.211">
-
-    </HorizontalScrollView>
 
     <TextView
         android:id="@+id/textView"

@@ -21,7 +21,7 @@ class ShoppingPage: AppCompatActivity(), AdapterRecycler.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shoppinginfo)
-
+        imageView2.setImageResource(R.drawable.web_gaia)
         val dao = ShoppingDatabase.getInstance(this).shoppingDao
 
         val nomeShopping = intent.getStringExtra("nomeShopping")
@@ -41,9 +41,9 @@ class ShoppingPage: AppCompatActivity(), AdapterRecycler.OnItemClickListener {
             **/
         }
 
-        store_recycler.adapter = AdapterRecycler(listLoja, this)
+        store_recycler.adapter = AdapterRecycler(exampleList, this)
         store_recycler.layoutManager = GridLayoutManager(this, 2)
-        store_recycler.setHasFixedSize(true)
+        store_recycler.setHasFixedSize(false)
 
     }
 
@@ -66,6 +66,6 @@ class ShoppingPage: AppCompatActivity(), AdapterRecycler.OnItemClickListener {
 
     override fun onItemClick(position: Int) {
         Toast.makeText(this, "item $position clicked", Toast.LENGTH_SHORT).show()
-        val clickedItem = listLoja[position]
+        val clickedItem = exampleList[position]
     }
 }
