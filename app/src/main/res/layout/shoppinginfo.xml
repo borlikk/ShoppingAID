@@ -24,12 +24,11 @@
                 android:contentDescription="GaiaShopping" />
 
             <TextView
-                android:padding="3dp"
                 android:id="@+id/shoppingname"
                 android:layout_width="match_parent"
                 android:layout_height="59dp"
                 android:layout_marginStart="4dp"
-                android:text="Shopping Name"
+                android:padding="3dp"
                 android:textAlignment="center"
                 android:textSize="36sp" />
 
@@ -56,12 +55,12 @@
                 android:text="Schedule"
                 android:textSize="24sp" />
 
-            <ListView
+            <TextView
                 android:id="@+id/horario"
                 android:layout_width="match_parent"
-                android:layout_height="275dp" >
-
-            </ListView>
+                android:layout_height="match_parent"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/stores"

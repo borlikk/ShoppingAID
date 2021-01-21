@@ -10,5 +10,6 @@ data class Shopping(
     val name: String,
     val location: String,
     val horarioShopping: String,
-    val lotacaoShopping: Int
+    val lotacaoShopping: Int,
+    val website: String
 )

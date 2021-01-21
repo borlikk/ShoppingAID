@@ -32,7 +32,6 @@ class SearchShopping : AppCompatActivity(), ShoppingAdapter.OnItemClickListener{
 
         search?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
-
                 lifecycleScope.launch {
                     val listShopping = dao.searchShopping(p0)
                     if (listShopping.isEmpty()) {
@@ -43,7 +42,7 @@ class SearchShopping : AppCompatActivity(), ShoppingAdapter.OnItemClickListener{
                             listShopping.first().name,
                             listShopping.first().location
                         )
-
+                        list.removeAll(list)
                         list += firstItem
                         recycler.adapter = adapter
                     }
@@ -62,7 +61,9 @@ class SearchShopping : AppCompatActivity(), ShoppingAdapter.OnItemClickListener{
 
     override fun onItemClick(position: Int) {
         val clickedShopping = list[position]
-        Toast.makeText(this, "Shopping: ${clickedShopping.text}", Toast.LENGTH_LONG).show()
-
+        //Toast.makeText(this, "Shopping: ${clickedShopping.text}", Toast.LENGTH_LONG).show()
+        val intent = Intent(this, ShoppingPage::class.java)
+        intent.putExtra("nomeShopping", clickedShopping.text)
+        startActivity(intent)
     }
 }
