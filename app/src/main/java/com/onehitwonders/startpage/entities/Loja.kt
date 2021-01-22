@@ -11,6 +11,7 @@ data class Loja(
     val pisoLoja: Int,
     val lotacaoLoja: Int,
     val website: String,
-    val descricao: String,
+    val email: String,
+    val contacto: String,
     val horarioLoja: String
 )

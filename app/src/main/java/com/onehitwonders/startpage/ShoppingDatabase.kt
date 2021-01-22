@@ -16,7 +16,7 @@ import com.onehitwonders.startpage.entities.*
         Outdoor::class,
         Indoor::class
     ],
-    version = 1
+    version = 2
 )
 abstract class ShoppingDatabase: RoomDatabase() {
 
@@ -32,7 +32,7 @@ abstract class ShoppingDatabase: RoomDatabase() {
                     context.applicationContext,
                     ShoppingDatabase::class.java,
                     "shopping_db"
-                ).build().also {
+                ).fallbackToDestructiveMigration().build().also {
                     INSTANCE = it
                 }
             }

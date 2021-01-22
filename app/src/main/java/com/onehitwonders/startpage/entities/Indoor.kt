@@ -1,5 +1,6 @@
 package com.onehitwonders.startpage.entities
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -8,7 +9,7 @@ data class Indoor(
     @PrimaryKey(autoGenerate = true)
     val idIndoor: Int,
     val idEstacionamento: Int,
-    val piso: Int,
+    val piso: String,
     val seccao: String,
-    val numero: Int
+    @ColumnInfo(defaultValue = "Forgot to Input") val numero: String
 )
