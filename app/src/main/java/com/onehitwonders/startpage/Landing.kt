@@ -24,6 +24,7 @@ import com.budiyev.android.codescanner.ScanMode
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.onehitwonders.startpage.entities.*
 import kotlinx.android.synthetic.main.campreview.*
+import kotlinx.android.synthetic.main.landing.*
 import kotlinx.coroutines.launch
 import java.util.*
 import java.util.jar.Manifest
@@ -34,7 +35,6 @@ class Landing : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-
 
         val dao = ShoppingDatabase.getInstance(this).shoppingDao
 
@@ -88,7 +88,16 @@ class Landing : AppCompatActivity() {
         }
         **/
 
+        val images = listOf(
+            R.drawable.ass,
+            R.drawable.monke
+        )
+
         setContentView(R.layout.landing)
+
+        val adapter = viewPagerAdapter(images)
+        viewPager.adapter = adapter
+
         val camera = findViewById<FloatingActionButton>(R.id.btncamera)
         camera.setOnClickListener {
             startActivity(Intent(this, CameraPreview::class.java))

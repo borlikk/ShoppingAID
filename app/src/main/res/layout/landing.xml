@@ -6,16 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.viewpager.widget.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.viewpager.widget.PagerTitleStrip
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top" />
-
-    </androidx.viewpager.widget.ViewPager>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="410dp"
+        android:layout_height="405dp"
+        app:layout_constraintBottom_toTopOf="@+id/btncamera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.258" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btncamera"

@@ -14,8 +14,7 @@ import kotlinx.android.synthetic.main.shoppinginfo.*
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class ShoppingPage: AppCompatActivity(), AdapterRecycler.OnItemClickListener {
-    private val exampleList = generateDummyList(10)
+class ShoppingPage: AppCompatActivity(){
     private val listLoja = ArrayList<RecyclerItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,41 +30,18 @@ class ShoppingPage: AppCompatActivity(), AdapterRecycler.OnItemClickListener {
             shoppingname.text = listShopping.first().name
             horario.text = listShopping.first().horarioShopping
 
-            /**
             val listLojas = dao.searchLojas(listShopping.first().idShopping)
 
-            for (loja in listLojas){
-                val nomeLoja = RecyclerItem(R.drawable.ic_laptop, loja.nomeLoja)
-                listLoja += nomeLoja
+            for (loja in listLojas) {
+                val exemploLoja = RecyclerItem(0, loja.nomeLoja)
+                listLoja.add(exemploLoja)
             }
-            **/
+
         }
 
-        store_recycler.adapter = AdapterRecycler(exampleList, this)
+        store_recycler.adapter = AdapterRecycler(listLoja)
         store_recycler.layoutManager = GridLayoutManager(this, 2)
         store_recycler.setHasFixedSize(false)
 
-    }
-
-    private fun generateDummyList(size: Int): List<RecyclerItem> {
-        val list = ArrayList<RecyclerItem>()
-
-        for (i in 0 until size) {
-            val drawable = when (i % 3) {
-                0 -> R.drawable.ic_kayaking_
-                1 -> R.drawable.ic_laptop
-                else -> R.drawable.ic_contacts
-            }
-
-            val item = RecyclerItem(drawable, "Item $i")
-            list += item
-        }
-
-        return list
-    }
-
-    override fun onItemClick(position: Int) {
-        Toast.makeText(this, "item $position clicked", Toast.LENGTH_SHORT).show()
-        val clickedItem = exampleList[position]
     }
 }
