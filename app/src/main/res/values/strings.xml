@@ -12,6 +12,6 @@
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="location">Location</string>
     <string name="website">Website</string>
-    <string name="shopping_name">Shopping Name</string>
+    <string name="store_name">Store Name</string>
     <string name="nada">Nada</string>
 </resources>
