@@ -81,7 +81,6 @@
         android:id="@+id/park"
         android:layout_width="89dp"
         android:layout_height="89dp"
-        android:layout_marginTop="92dp"
         android:clickable="true"
         android:contentDescription="parking"
         android:elevation="1dp"
@@ -89,11 +88,10 @@
         app:fabCustomSize="89dp"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnmain"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toEndOf="@+id/btncamera"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager"
-        app:layout_constraintVertical_bias="0.336"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.895"
         app:maxImageSize="60dp"
         app:srcCompat="@drawable/ic_parking" />
 
