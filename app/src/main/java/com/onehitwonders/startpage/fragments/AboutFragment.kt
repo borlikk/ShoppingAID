@@ -29,7 +29,7 @@ class AboutFragment(codigo: String?) : Fragment() {
 
         scanCodeViewModel?.scanCode = scanCode
 
-        codigoInfoAbout.text = scanCode
+
 
     }
 

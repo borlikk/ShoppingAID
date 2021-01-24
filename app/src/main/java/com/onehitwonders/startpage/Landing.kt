@@ -22,8 +22,8 @@ class Landing : AppCompatActivity() {
         /**
 
         val shoppings = listOf(
-        Shopping(0, "GaiaShopping","Gaia" ,41.11833833016957,-8.622343648315285,"10:00 às 22:30", 600, "https://www.gaiashopping.pt/mapa%22"),
-        Shopping(0, "ArrabidaShopping", "Arrabida",41.14227044930134, -8.636432043805279, "10:00 às 22:30", 1000, "https://www.arrabidashopping.com/mapa%22")
+            Shopping(0, "GaiaShopping", "Gaia",41.11833833016957,-8.622343648315285,"10:00 às 22:30", 600, "https://www.gaiashopping.pt/mapa"),
+            Shopping(0, "ArrabidaShopping", "Gaia",41.14227044930134, -8.636432043805279, "10:00 às 22:30", 1000, "https://www.arrabidashopping.com/mapa")
         )
 
         val lojas = listOf(
@@ -68,6 +68,7 @@ class Landing : AppCompatActivity() {
             outdoor.forEach { dao.insertOutdoor(it) }
             indoor.forEach { dao.insertIndoor(it) }
         }
+
         **/
 
         val images = listOf(
