@@ -1,37 +1,27 @@
 package com.onehitwonders.startpage.fragments
 
-import android.database.Cursor
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.SearchView
-import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
-import com.onehitwonders.startpage.R
-import com.onehitwonders.startpage.ShoppingDatabase
+import androidx.recyclerview.widget.GridLayoutManager
+import com.onehitwonders.startpage.*
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.shoppinginfo.*
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment() {
+class HomeFragment() : Fragment() {
 
-    companion object{
-        const val ARG_NAME = "teste"
+    private val listLoja = ArrayList<LojaItem>()
 
-        fun newInstance(name: String): HomeFragment{
-            val fragment = HomeFragment()
-
-            val bundle = Bundle().apply {
-                putString(ARG_NAME, name)
-            }
-
-            fragment.arguments = bundle
-
-            return fragment
-        }
+    private val scanCodeViewModel by lazy {
+        activity?.let { ViewModelProviders.of(it).get(ScanCodeViewModel::class.java) }
     }
 
     override fun onCreateView(
@@ -42,34 +32,35 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var arrayList= ArrayList<String>()
+        //listLoja.removeAll()
         val search = view.findViewById<SearchView>(R.id.barraPesquisa)
-        /**
-        val listview = view.findViewById<ListView>(R.id.list)
-        val label = view.findViewById<TextView>(R.id.ScanCam)
-        label.text = arguments?.getString(ARG_NAME)
 
-        var adapter =
-            activity?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, arrayList) }
-        listview.adapter = adapter
+        val dao by lazy { ShoppingDatabase.getInstance(requireContext()).shoppingDao }
 
-        **/
+        lifecycleScope.launch {
+            val listLojas = scanCodeViewModel?.scanCode?.let { dao.searchLojas(it.toInt()) }
+
+            if (listLojas != null) {
+                for (loja in listLojas) {
+                    val exemploLoja = LojaItem(R.drawable.ic_baseline_shopping_bag_24, loja.nomeLoja, loja.pisoLoja.toString())
+                    listLoja.add(exemploLoja)
+                }
+            }
+
+        }
+
+        shopRecyclerView.adapter = LojaAdapter(listLoja)
+        shopRecyclerView.layoutManager = GridLayoutManager(activity, 1)
+        shopRecyclerView.setHasFixedSize(false)
 
         search?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                val dao by lazy { ShoppingDatabase.getInstance(context!!).shoppingDao }
 
-                GlobalScope.launch {
-                    val nomeShopping = dao.searchShopping(p0)
-                    nomeShopping.first().name
-                }
-
-                if (arrayList.contains(p0)){
-                    //adapter?.filter?.filter(p0)
-                }
 
                 return false
             }

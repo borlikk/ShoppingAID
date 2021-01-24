@@ -18,6 +18,7 @@ import com.onehitwonders.startpage.entities.Outdoor
 import kotlinx.android.synthetic.main.park_outdoor.*
 import kotlinx.coroutines.launch
 
+private const val LOCATION_REQUEST_CODE = 101
 class ParkOutdoor: AppCompatActivity() {
 
     private var dao = ShoppingDatabase.getInstance(this).shoppingDao
@@ -30,7 +31,7 @@ class ParkOutdoor: AppCompatActivity() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         getLocation.setOnClickListener {
-            checkPermission()
+            setupPermissions()
 
             startActivity(Intent(this, Landing::class.java))
         }
@@ -42,6 +43,19 @@ class ParkOutdoor: AppCompatActivity() {
         }else{
             getLocation()
         }
+    }
+
+    private fun setupPermissions() {
+        val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+
+        if (permission != PackageManager.PERMISSION_GRANTED){
+            makeRequest()
+        }
+    }
+
+    private fun makeRequest() {
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
+        getLocation()
     }
 
     @SuppressLint("MissingPermission")
@@ -73,13 +87,13 @@ class ParkOutdoor: AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == 1){
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(this, "PERMISSION GRANTED", Toast.LENGTH_SHORT).show()
-                    getLocation()
-                }else{
-                    Toast.makeText(this, "Permission ddinied", Toast.LENGTH_SHORT).show()
+        when(requestCode) {
+            LOCATION_REQUEST_CODE -> {
+                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "You need Location Permission to get your location!", Toast.LENGTH_LONG).show()
+                }
+                else {
+                    //success
                 }
             }
         }
