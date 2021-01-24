@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
@@ -15,8 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.onehitwonders.startpage.entities.Estacionamento
 import com.onehitwonders.startpage.entities.Indoor
 import com.onehitwonders.startpage.entities.Outdoor
@@ -28,6 +28,7 @@ class ParkOutdoor: AppCompatActivity() {
     var PERMISSION_CODE = 101
     private var dao = ShoppingDatabase.getInstance(this).shoppingDao
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    lateinit var locationRequest: LocationRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,7 @@ class ParkOutdoor: AppCompatActivity() {
 
         getLocation.setOnClickListener {
             checkForPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION, "location", PERMISSION_CODE)
+
             getLocation()
         }
     }
@@ -89,6 +91,16 @@ class ParkOutdoor: AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun getLocation() {
+        locationRequest = LocationRequest()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 0
+        locationRequest.fastestInterval = 0
+        locationRequest.numUpdates = 2
+        fusedLocationProviderClient!!.requestLocationUpdates(
+            locationRequest,locationCallback, Looper.myLooper()
+        )
+
+        /**
         fusedLocationProviderClient.lastLocation?.addOnSuccessListener {
             if (it == null){
                 Toast.makeText(this, "Sorry Cant Get Location", Toast.LENGTH_SHORT).show()
@@ -110,6 +122,29 @@ class ParkOutdoor: AppCompatActivity() {
 
                 startActivity(Intent(this@ParkOutdoor, Landing::class.java))
             }
+        }
+        **/
+    }
+
+    private val locationCallback = object : LocationCallback(){
+        override fun onLocationResult(p0: LocationResult) {
+            var lastLocation = p0.lastLocation
+
+            val latitudeInfo = lastLocation.latitude
+            val longitudeInfo = lastLocation.longitude
+
+            lifecycleScope.launch {
+                val estacionamento = Estacionamento(0, 1, 0)
+                dao.insertEstacionamento(estacionamento)
+
+                val ultimoEstacionamento = dao.searchEstacionamento()
+
+                val estacionamentoOut = Outdoor(0, ultimoEstacionamento.first().idEstacionamento, latitudeInfo, longitudeInfo)
+                dao.insertOutdoor(estacionamentoOut)
+
+            }
+
+            startActivity(Intent(this@ParkOutdoor, Landing::class.java))
         }
     }
 
