@@ -9,6 +9,8 @@ data class Shopping(
     val idShopping: Int,
     val name: String,
     val location: String,
+    val locationlat: Double,
+    val locationlon: Double,
     val horarioShopping: String,
     val lotacaoShopping: Int,
     val website: String

@@ -1,11 +1,16 @@
 package com.onehitwonders.startpage
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -17,10 +22,10 @@ import com.onehitwonders.startpage.entities.Indoor
 import com.onehitwonders.startpage.entities.Outdoor
 import kotlinx.android.synthetic.main.park_outdoor.*
 import kotlinx.coroutines.launch
+import java.util.jar.Manifest
 
-private const val LOCATION_REQUEST_CODE = 101
 class ParkOutdoor: AppCompatActivity() {
-
+    var PERMISSION_CODE = 101
     private var dao = ShoppingDatabase.getInstance(this).shoppingDao
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
@@ -31,32 +36,56 @@ class ParkOutdoor: AppCompatActivity() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         getLocation.setOnClickListener {
-            setupPermissions()
-
-            startActivity(Intent(this, Landing::class.java))
-        }
-    }
-
-    private fun checkPermission() {
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1)
-        }else{
+            checkForPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION, "location", PERMISSION_CODE)
             getLocation()
         }
     }
 
-    private fun setupPermissions() {
-        val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-
-        if (permission != PackageManager.PERMISSION_GRANTED){
-            makeRequest()
+    private fun checkForPermissions(permission: String, name: String, requestCode: Int){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            when{
+                ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED -> {
+                    Toast.makeText(this, "$name permission granted", Toast.LENGTH_SHORT).show()
+                }
+                shouldShowRequestPermissionRationale(permission) -> showDialog(permission, name, requestCode)
+                else -> ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
+            }
         }
     }
 
-    private fun makeRequest() {
-        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
-        getLocation()
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        fun innerCheck(name:String){
+            if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "$name permission refused", Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(this, "$name permission granted", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        when (requestCode){
+            PERMISSION_CODE -> innerCheck("location")
+        }
     }
+
+    private fun showDialog(permission: String, name: String, requestCode: Int){
+        val builder = AlertDialog.Builder(this)
+
+        builder.apply {
+            setMessage("Permission to access your $name is required to record your location")
+            setTitle("Permission required")
+            setPositiveButton("OK") { dialog, which ->
+                ActivityCompat.requestPermissions(this@ParkOutdoor, arrayOf(permission), requestCode)
+            }
+        }
+        val dialog = builder.create()
+        dialog.show()
+
+    }
+
 
     @SuppressLint("MissingPermission")
     private fun getLocation() {
@@ -78,24 +107,10 @@ class ParkOutdoor: AppCompatActivity() {
                     dao.insertOutdoor(estacionamentoOut)
 
                 }
+
+                startActivity(Intent(this@ParkOutdoor, Landing::class.java))
             }
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when(requestCode) {
-            LOCATION_REQUEST_CODE -> {
-                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "You need Location Permission to get your location!", Toast.LENGTH_LONG).show()
-                }
-                else {
-                    //success
-                }
-            }
-        }
-    }
 }

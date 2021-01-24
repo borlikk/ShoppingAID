@@ -50,7 +50,7 @@ class ShowOut : AppCompatActivity(), OnMapReadyCallback {
             // Add a marker in Sydney and move the camera
 
             val sydney = LatLng(latitude, longitude)
-            mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+            mMap.addMarker(MarkerOptions().position(sydney).title("Your last parking"))
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
         }
 
