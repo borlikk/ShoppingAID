@@ -27,7 +27,7 @@ class Landing : AppCompatActivity() {
                 )
 
                 val lojas = listOf(
-                    Loja("Sport Zone", 1, 0, 15, "https://www.sportzone.pt", "gaispz2ger@sportzone.pt", "93 443 79 37 / 223780213", "Seg a Qua: 10:00 às 22:00 Dom, Sáb: 10:00 às 13:00 Qui: 10:00 às 19:00"),
+                    Loja("Sport Zone", 1, 0, 15, "https://www.sportzone.pt", "gaispz2ger@sportzone.pt", "93 443 79 37 / 223780213", "Seg a Qua: 10:00 às 22:00 Dom \nSáb: 10:00 às 13:00 \nQui: 10:00 às 19:00"),
                     Loja("FNAC", 1, 1, 15, "http://www.fnac.pt/", "fnac@gaiashopping.pt", "707 313 435 | 223781041", "Seg a Sex: 10:00 às 22:30 Dom, Sáb: 10:00 às 13:00")
                 )
 

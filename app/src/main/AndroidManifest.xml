@@ -42,6 +42,7 @@
         <activity android:name=".ParkIndoor"/>
         <activity android:name=".ParkOutdoor"/>
         <activity android:name=".ShowIn"/>
+        <activity android:name=".LojaPage"/>
         <activity android:name=".Landing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -42,12 +42,12 @@ class ShoppingPage: AppCompatActivity(), AdapterRecycler.OnItemClickListener{
 
     override fun onItemClick(position: Int) {
         val clickedLoja = listLoja[position]
-        Toast.makeText(this, "Shopping: ${clickedLoja.text1}", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Loja: ${clickedLoja.text1}", Toast.LENGTH_LONG).show()
 
-        /**
-        val intent = Intent(this, ShoppingPage::class.java)
-        intent.putExtra("nomeShopping", clickedShopping.text)
-        startActivity(intent)
-        **/
+        val intentLoja = Intent(this, LojaPage::class.java)
+        intentLoja.putExtra("nomeLoja", clickedLoja.text1)
+        intentLoja.putExtra("nomeShopping", intent.getStringExtra("nomeShopping"))
+        startActivity(intentLoja)
+
     }
 }
