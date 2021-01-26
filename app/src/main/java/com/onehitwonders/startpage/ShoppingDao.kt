@@ -71,4 +71,8 @@ interface ShoppingDao {
     @Transaction
     @Query("SELECT * FROM Outdoor ORDER BY idOutdoor DESC LIMIT 1")
     suspend fun searchOut(): List<Outdoor>
+
+    @Transaction
+    @Query("SELECT * FROM Shopping")
+    suspend fun checkDatabase(): List<Shopping>
 }

@@ -35,6 +35,8 @@ class SearchShopping : AppCompatActivity(), ShoppingAdapter.OnItemClickListener{
                 lifecycleScope.launch {
                     val listShopping = dao.searchShopping(p0)
                     if (listShopping.isEmpty()) {
+                        Toast.makeText(this@SearchShopping, "$p0 is not available!", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this@SearchShopping, SearchShopping::class.java))
                         lifecycleScope.cancel("Shopping Inexistente")
                     } else {
                         val firstItem = ShoppingItem(
