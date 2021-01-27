@@ -13,7 +13,7 @@
             android:id="@+id/barraPesquisa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:queryHint="Pesquisar por Shopping" />
+            android:queryHint="Search for stores" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/shopRecyclerView"

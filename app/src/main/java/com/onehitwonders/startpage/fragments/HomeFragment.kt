@@ -15,10 +15,13 @@ import kotlinx.android.synthetic.main.shoppinginfo.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeFragment() : Fragment() {
 
     private val listLoja = ArrayList<LojaItem>()
+    private val displayList = ArrayList<LojaItem>()
 
     private val scanCodeViewModel by lazy {
         activity?.let { ViewModelProviders.of(it).get(ScanCodeViewModel::class.java) }
@@ -52,9 +55,11 @@ class HomeFragment() : Fragment() {
                 }
             }
 
+            displayList.addAll(listLoja)
+
         }
 
-        shopRecyclerView.adapter = LojaAdapter(listLoja)
+        shopRecyclerView.adapter = LojaAdapter(displayList)
         shopRecyclerView.layoutManager = GridLayoutManager(activity, 1)
         shopRecyclerView.setHasFixedSize(false)
 
@@ -62,12 +67,27 @@ class HomeFragment() : Fragment() {
             override fun onQueryTextSubmit(p0: String?): Boolean {
 
 
-                return false
+                return true
             }
 
             override fun onQueryTextChange(p0: String?): Boolean {
-                //adapter?.filter?.filter(p0)
-                return false
+
+                if (p0!!.isNotBlank()){
+                    displayList.clear()
+                    val search = p0.toLowerCase(Locale.getDefault())
+                    listLoja.forEach {
+                        if (it.text1.toLowerCase(Locale.getDefault()).contains(search)){
+                            displayList.add(it)
+                        }
+                    }
+
+                    shopRecyclerView.adapter!!.notifyDataSetChanged()
+                }else{
+                    displayList.clear()
+                    displayList.addAll(listLoja)
+                    shopRecyclerView.adapter!!.notifyDataSetChanged()
+                }
+                return true
             }
 
         })

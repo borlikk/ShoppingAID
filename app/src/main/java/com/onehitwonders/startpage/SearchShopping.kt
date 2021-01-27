@@ -6,17 +6,21 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SearchShopping : AppCompatActivity(), ShoppingAdapter.OnItemClickListener{
-    private val adapter: ShoppingAdapter
-        get() = ShoppingAdapter(list, this)
+
     private val list = ArrayList<ShoppingItem>()
+    private val displayList = ArrayList<ShoppingItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,34 +31,43 @@ class SearchShopping : AppCompatActivity(), ShoppingAdapter.OnItemClickListener{
 
         val dao = ShoppingDatabase.getInstance(this).shoppingDao
 
-        recycler.layoutManager = LinearLayoutManager(this)
+        lifecycleScope.launch {
+            val listShopping = dao.shopping()
+
+            for (shopping in listShopping) {
+                val exemploShopping = ShoppingItem(R.drawable.ic_baseline_shopping_bag_24, shopping.name, shopping.location)
+                list.add(exemploShopping)
+            }
+
+            displayList.addAll(list)
+            }
+        recycler.adapter = ShoppingAdapter(displayList, this)
+        recycler.layoutManager = GridLayoutManager(this, 1)
         recycler.setHasFixedSize(true)
 
         search?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                lifecycleScope.launch {
-                    val listShopping = dao.searchShopping(p0)
-                    if (listShopping.isEmpty()) {
-                        Toast.makeText(this@SearchShopping, "$p0 is not available!", Toast.LENGTH_LONG).show()
-                        startActivity(Intent(this@SearchShopping, SearchShopping::class.java))
-                        lifecycleScope.cancel("Shopping Inexistente")
-                    } else {
-                        val firstItem = ShoppingItem(
-                            R.drawable.ic_baseline_shopping_bag_24,
-                            listShopping.first().name,
-                            listShopping.first().location
-                        )
-                        list.removeAll(list)
-                        list += firstItem
-                        recycler.adapter = adapter
-                    }
-                }
-                return false
+
+                return true
             }
 
             override fun onQueryTextChange(p0: String?): Boolean {
-                //adapter?.filter?.filter(p0)
-                return false
+                if (p0!!.isNotBlank()){
+                    displayList.clear()
+                    val search = p0.toLowerCase(Locale.getDefault())
+                    list.forEach {
+                        if (it.text.toLowerCase(Locale.getDefault()).contains(search)){
+                            displayList.add(it)
+                        }
+                    }
+
+                    recycler.adapter!!.notifyDataSetChanged()
+                }else{
+                    displayList.clear()
+                    displayList.addAll(list)
+                    recycler.adapter!!.notifyDataSetChanged()
+                }
+                return true
             }
 
         })
@@ -62,7 +75,7 @@ class SearchShopping : AppCompatActivity(), ShoppingAdapter.OnItemClickListener{
     }
 
     override fun onItemClick(position: Int) {
-        val clickedShopping = list[position]
+        val clickedShopping = displayList[position]
         //Toast.makeText(this, "Shopping: ${clickedShopping.text}", Toast.LENGTH_LONG).show()
         val intent = Intent(this, ShoppingPage::class.java)
         intent.putExtra("nomeShopping", clickedShopping.text)
