@@ -72,8 +72,9 @@ class Landing : AppCompatActivity() {
 
 
         val images = listOf(
-            R.drawable.ass,
-            R.drawable.monke
+            R.drawable.tutorial,
+            R.drawable.tutoria_2,
+            R.drawable.tutorial_3
         )
 
         setContentView(R.layout.landing)
