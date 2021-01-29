@@ -1,10 +1,12 @@
 package com.onehitwonders.startpage.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
@@ -18,10 +20,11 @@ import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HomeFragment() : Fragment() {
+class HomeFragment() : Fragment() , LojaAdapter.OnItemClickListener{
 
     private val listLoja = ArrayList<LojaItem>()
     private val displayList = ArrayList<LojaItem>()
+    private var nome: String = ""
 
     private val scanCodeViewModel by lazy {
         activity?.let { ViewModelProviders.of(it).get(ScanCodeViewModel::class.java) }
@@ -40,29 +43,34 @@ class HomeFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //listLoja.removeAll()
+
         val search = view.findViewById<SearchView>(R.id.barraPesquisa)
 
         val dao by lazy { ShoppingDatabase.getInstance(requireContext()).shoppingDao }
 
-        shopRecyclerView.adapter = LojaAdapter(displayList)
-        shopRecyclerView.layoutManager = GridLayoutManager(activity, 2)
-        shopRecyclerView.setHasFixedSize(false)
+        if (listLoja.isEmpty()) {
+            lifecycleScope.launch {
+                val listLojas = scanCodeViewModel?.scanCode?.let { dao.searchLojas(it.toInt()) }
 
-        lifecycleScope.launch {
-            val listLojas = scanCodeViewModel?.scanCode?.let { dao.searchLojas(it.toInt()) }
-
-            if (listLojas != null) {
-                for (loja in listLojas) {
-                    val exemploLoja = LojaItem(R.drawable.ic_baseline_shopping_bag_24, loja.nomeLoja, loja.pisoLoja.toString())
-                    listLoja.add(exemploLoja)
+                if (listLojas != null) {
+                    for (loja in listLojas) {
+                        val exemploLoja = LojaItem(
+                            R.drawable.store_list,
+                            loja.nomeLoja,
+                            loja.pisoLoja.toString()
+                        )
+                        listLoja.add(exemploLoja)
+                    }
                 }
+
+                displayList.addAll(listLoja)
+
             }
-
-            displayList.addAll(listLoja)
-
         }
 
+        shopRecyclerView.adapter = LojaAdapter(displayList, this)
+        shopRecyclerView.layoutManager = GridLayoutManager(activity, 2)
+        shopRecyclerView.setHasFixedSize(false)
 
 
         search?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -95,4 +103,26 @@ class HomeFragment() : Fragment() {
         })
     }
 
+    override fun onItemClick(position: Int) {
+        val clickedLoja = displayList[position]
+
+        val dao by lazy { ShoppingDatabase.getInstance(requireContext()).shoppingDao }
+
+        lifecycleScope.launch {
+            val shopping = scanCodeViewModel?.scanCode?.let { dao.map(it.toInt()) }
+
+            if (shopping?.isEmpty() == false) {
+                nome = shopping.first().name
+                //Toast.makeText(activity, nome, Toast.LENGTH_LONG).show()
+
+                val intentLoja = Intent(this@HomeFragment.context, LojaPage::class.java)
+                intentLoja.putExtra("nomeLoja", clickedLoja.text1)
+                intentLoja.putExtra("nomeShopping", nome)
+                startActivity(intentLoja)
+            }
+        }
+
+
     }
+
+}

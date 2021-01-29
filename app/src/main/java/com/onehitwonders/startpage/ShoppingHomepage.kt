@@ -24,9 +24,9 @@ class ShoppingHomepage : AppCompatActivity() {
         makeCurrentFragment(aboutFragment)
         bot_nav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
+                R.id.ic_about -> makeCurrentFragment(aboutFragment)
                 R.id.ic_home -> makeCurrentFragment(homeFragment)
                 R.id.ic_map -> makeCurrentFragment(mapFragment)
-                R.id.ic_about -> makeCurrentFragment(aboutFragment)
             }
             true
         }

@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Loja(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
+    val idLoja: Int,
     val nomeLoja: String,
     val idShopping: Int,
     val pisoLoja: Int,

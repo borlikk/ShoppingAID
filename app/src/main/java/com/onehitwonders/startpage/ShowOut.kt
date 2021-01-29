@@ -43,7 +43,7 @@ class ShowOut : AppCompatActivity(), OnMapReadyCallback {
 
             val sydney = LatLng(latitude, longitude)
             mMap.addMarker(MarkerOptions().position(sydney).title("Your last parking"))
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15.0f))
         }
 
     }

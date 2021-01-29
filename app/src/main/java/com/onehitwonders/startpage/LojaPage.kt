@@ -17,6 +17,7 @@ class LojaPage : AppCompatActivity(){
         val dao = ShoppingDatabase.getInstance(this).shoppingDao
 
         storename.text = nomeLoja
+        banner.setImageResource(R.drawable.store)
 
         lifecycleScope.launch {
             val idShopping = dao.searchShopping(nomeShopping)
@@ -24,7 +25,10 @@ class LojaPage : AppCompatActivity(){
 
             horarioLoja.text = infoLoja.first().horarioLoja
             emailLoja.text = infoLoja.first().email
+            pisoLoja_storePage.text = infoLoja.first().pisoLoja.toString()
             contactoLoja.text = infoLoja.first().contacto
+            website.text = infoLoja.first().website
+
         }
     }
 

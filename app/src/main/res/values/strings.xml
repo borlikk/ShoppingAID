@@ -41,4 +41,5 @@
         <item>-4</item>
     </string-array>
     <string name="title_activity_show_out">Map</string>
+    <string name="title_activity_info_shopping">Map</string>
 </resources>
