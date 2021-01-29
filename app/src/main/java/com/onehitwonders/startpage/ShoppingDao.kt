@@ -83,4 +83,8 @@ interface ShoppingDao {
     @Transaction
     @Query("SELECT * FROM Shopping")
     suspend fun shopping(): List<Shopping>
+
+    @Transaction
+    @Query("SELECT * FROM Shopping WHERE idShopping = :id ")
+    suspend fun map(id: Int?): List<Shopping>
 }

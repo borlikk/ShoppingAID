@@ -45,6 +45,10 @@ class HomeFragment() : Fragment() {
 
         val dao by lazy { ShoppingDatabase.getInstance(requireContext()).shoppingDao }
 
+        shopRecyclerView.adapter = LojaAdapter(displayList)
+        shopRecyclerView.layoutManager = GridLayoutManager(activity, 2)
+        shopRecyclerView.setHasFixedSize(false)
+
         lifecycleScope.launch {
             val listLojas = scanCodeViewModel?.scanCode?.let { dao.searchLojas(it.toInt()) }
 
@@ -59,9 +63,7 @@ class HomeFragment() : Fragment() {
 
         }
 
-        shopRecyclerView.adapter = LojaAdapter(displayList)
-        shopRecyclerView.layoutManager = GridLayoutManager(activity, 1)
-        shopRecyclerView.setHasFixedSize(false)
+
 
         search?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {

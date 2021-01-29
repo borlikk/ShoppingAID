@@ -23,7 +23,7 @@ class ShoppingPage: AppCompatActivity(), AdapterRecycler.OnItemClickListener{
         lifecycleScope.launch {
             val listShopping = dao.searchShopping(nomeShopping)
             shoppingname.text = listShopping.first().name
-            horario.text = listShopping.first().horarioShopping
+            shoppinghorario2.text = listShopping.first().horarioShopping
 
             val listLojas = dao.searchLojas(listShopping.first().idShopping)
 
