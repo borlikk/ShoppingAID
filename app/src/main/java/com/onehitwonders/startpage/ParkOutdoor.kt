@@ -47,7 +47,7 @@ class ParkOutdoor: AppCompatActivity() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             when{
                 ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED -> {
-                    Toast.makeText(this, "$name permission granted", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "$name permission granted", Toast.LENGTH_SHORT).show()
                 }
                 shouldShowRequestPermissionRationale(permission) -> showDialog(permission, name, requestCode)
                 else -> ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
@@ -62,9 +62,9 @@ class ParkOutdoor: AppCompatActivity() {
     ) {
         fun innerCheck(name:String){
             if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "$name permission refused", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this, "$name permission refused", Toast.LENGTH_LONG).show()
             }else{
-                Toast.makeText(this, "$name permission granted", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this, "$name permission granted", Toast.LENGTH_LONG).show()
             }
         }
 
