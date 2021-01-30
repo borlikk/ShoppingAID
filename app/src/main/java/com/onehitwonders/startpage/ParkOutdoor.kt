@@ -34,6 +34,8 @@ class ParkOutdoor: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.park_outdoor)
 
+        outdoorImage.setImageResource(R.drawable.outdoor)
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         getLocation.setOnClickListener {
