@@ -5,7 +5,7 @@
     <string name="prevtext">Please wait for scan</string>
     <string name="homefrag">Home Fragment</string>
     <string name="mapfrag">Nav Fragment</string>
-    <string name="navnamehome">Home</string>
+    <string name="navnamehome">Stores</string>
     <string name="navnamemap">Navi</string>
     <string name="abtfrag">About Fragment</string>
     <string name="navnameabout">About</string>
