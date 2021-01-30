@@ -3,6 +3,7 @@ package com.onehitwonders.startpage
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import kotlinx.android.synthetic.main.landing.*
 import kotlinx.android.synthetic.main.storepage.*
 import kotlinx.coroutines.launch
 
@@ -18,6 +19,15 @@ class LojaPage : AppCompatActivity(){
 
         storename.text = nomeLoja
         banner.setImageResource(R.drawable.store)
+
+        val images = listOf(
+            R.drawable.img_loja_1,
+            R.drawable.img_loja_2,
+            R.drawable.img_loja_3
+        )
+
+        val adapter = viewPagerAdapter(images)
+        imgsLoja.adapter = adapter
 
         lifecycleScope.launch {
             val idShopping = dao.searchShopping(nomeShopping)
