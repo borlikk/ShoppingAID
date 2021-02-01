@@ -97,7 +97,7 @@ class ParkOutdoor: AppCompatActivity() {
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest.interval = 0
         locationRequest.fastestInterval = 0
-        locationRequest.numUpdates = 2
+        locationRequest.numUpdates = 1
         fusedLocationProviderClient!!.requestLocationUpdates(
             locationRequest,locationCallback, Looper.myLooper()
         )
@@ -145,7 +145,7 @@ class ParkOutdoor: AppCompatActivity() {
                 dao.insertOutdoor(estacionamentoOut)
 
             }
-
+            //Toast.makeText(this@ParkOutdoor, "Wat", Toast.LENGTH_LONG).show()
             startActivity(Intent(this@ParkOutdoor, Landing::class.java))
         }
     }
